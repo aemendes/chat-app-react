@@ -1,12 +1,12 @@
 # chat-app-react
 Project proposed by the University of Beira Interior on Distributed Systems.
 
-Main objectives:
+## Main objectives:
 - creation of a Web service
 - creating a proxy for the Web service
 - creation of a client (s) and / or server (s) (consumer) for the Web service.
 
-The project should involve the following characteristics of distributed systems:
+## The project should involve the following characteristics of distributed systems:
 - Resource Sharing
 - Heterogeneity
 
