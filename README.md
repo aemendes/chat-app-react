@@ -7,12 +7,12 @@ Main objectives:
 - creation of a client (s) and / or server (s) (consumer) for the Web service.
 
 The project should involve the following characteristics of distributed systems:
-    • Resource Sharing
-    • Heterogeneity
-    • Scalability
-    • Transparency
-    • Competition
-    • Fault Tolerance
-    • Safety
+    - Resource Sharing
+    - Heterogeneity
+    - Scalability
+    - Transparency
+    - Competition
+    - Fault Tolerance
+    - Safety
 
 This part of the project will be the creation of a react client for the Web service.
