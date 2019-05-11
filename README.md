@@ -17,3 +17,9 @@ Project proposed by the University of Beira Interior on Distributed Systems.
 - Safety
 
 This part of the project will be the creation of a react client for the Web service.
+
+### Compile & Start 
+
+- npm run start
+- yarn run sass
+
