@@ -5,7 +5,10 @@ $primary-color: grey;
 
 $font-stack: Optima, sans-serif;
 
-.login-column{
-	background-color: grey;
+.login-align-center{
+	align-self: center;
 }
 
+.login-columns-height{
+	height: 100%;
+}
