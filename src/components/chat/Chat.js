@@ -19,9 +19,7 @@ export default class Chat extends Component {
 					<div class="column is-3" style={{ borderRight: '1px solid grey', overflow: 'auto' }}>Lista dos contatos</div>
 					<div class="column" >Conversa</div>
 				</div>
-
-
 			</div>
-		)
+		);
 	}
 }
