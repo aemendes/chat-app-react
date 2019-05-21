@@ -20,7 +20,7 @@ This part of the project will be the creation of a react client for the Web serv
 
 ### Compile & Start 
 
-- npm install || npm i
+- npm install or npm i
 - npm start
 - yarn run sass
 
