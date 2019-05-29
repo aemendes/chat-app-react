@@ -14,7 +14,10 @@ export default class App extends Component {
   render(){
     return(
       <div style={{ height: '100vh', backgroundColor: '#e1e1e1' }}>
-        { !this.state.username ? <Login /> : <Chat username={this.state.username} />}
+        { !this.state.username ? <Login login={(user)=>{this.setState({username: user})}}
+                                        logout={()=>{this.setState({username: ''})}} /> 
+                                : 
+                                  <Chat username={this.state.username} />}
       </div>
     );
   }
