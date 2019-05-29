@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import './styles/css/App.css';
 import Login from './components/login/Login';
 import Chat from './components/chat/Chat';
-import Messages from "./Messages";
-import Input from "./Input";
 import './App.css';
+
+import { checkSession } from './connections';
 
 export default class App extends Component {
   constructor(props){
@@ -12,7 +12,13 @@ export default class App extends Component {
 		this.state = {
 			username: ''
 		};
-	}
+  }
+  
+  componentDidMount(){
+    checkSession().then(res =>{
+      this.setState({ username: res });
+    });
+  }
 
   render(){
     return(

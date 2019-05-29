@@ -22,7 +22,6 @@ export default class Login extends Component {
 		};
 	};
 
-
 	updateValueUsernameLogin(evt){
 		this.setState({ inputLoginUsername: evt.target.value });
 	}
@@ -31,10 +30,9 @@ export default class Login extends Component {
 		this.setState({ inputLoginPassword: evt.target.value })
 	}
 
-
 	loginTab(){
 		return(
-			<div className="card-content" style={{ minHeight: '55vh'}}>
+			<div className="card-content" style={{ minHeight: '55vh' }}>
 				<p style={{ marginBottom: 30, textAlign: 'center', width: '100%', fontSize: 25}}>Welcome!!</p>
 				Username:
 				<div className="field" style={{ marginTop: 10, marginBottom: 20 }}>
@@ -56,7 +54,7 @@ export default class Login extends Component {
 								type="password" 
 								placeholder="Password"
 								value={this.state.inputLoginPassword}
-								onChange={(e) => this.state.inputLoginPassword(e)} />
+								onChange={(e) => this.updateValuePasswordLogin(e)} />
 						<span className="icon is-small is-left">
 							<i className="fas fa-lock"></i>
 						</span>
@@ -71,17 +69,16 @@ export default class Login extends Component {
 					<button className="button is-primary" 
 							style={{ width: '100%' }}
 							onClick={() => {
-								login(this.state.inputLoginUsername, this.state.inputLoginPassword
+								login(this.state.inputLoginUsername, this.state.inputLoginPassword)
 									.then(res => {
-										if(res === 1){
-											this.props.login(this.state.inputLoginUsername);
+										if(res.code === 1){
+											this.props.login(res.username);
 											this.setState({ inputLoginUsername: '', inputLoginPassword: '', loginInvalid: false });
 										}else{
 											this.setState({ loginInvalid: true, inputLoginPassword: '' });
 										}
 									})
-								);}
-							} >Submit</button>
+							}} >Submit</button>
 				</div>
 			</div>
 		);
@@ -162,8 +159,10 @@ export default class Login extends Component {
 									signup(this.state.inputSigninUsername, this.state.inputSigninPassword)
 											.then(res => {
 												console.log('registado com sucesso, code = ' + res);
-												if(res === 1){
-													this.props.login(this.state.inputSigninUsername);
+												if(res.code === 1){
+													console.log('user = ' + res.username);
+													
+													this.props.login(res.username);
 													this.setState({ usernameInvalid: false, passwordInvalid: false });
 												}else{
 													this.setState({ usernameInvalid: true, passwordInvalid: true });
@@ -180,7 +179,7 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<div className="columns Tab-columns-height">
+			<div className="columns Tab-columns-height" style={{ height: '100%' }}>
 				<div className="column login-align-center"></div>
 				<div className="column is-half login-align-center" >
 					<div className="card">

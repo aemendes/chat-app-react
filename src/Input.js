@@ -1,6 +1,5 @@
 import {Component} from "react";
 import React from "react";
-import Messages from "./Messages";
 
 class Input extends Component {
   state = {
