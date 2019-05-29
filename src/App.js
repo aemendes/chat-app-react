@@ -10,10 +10,15 @@ import { checkSession } from './connections';
 
 export default class App extends Component {
   constructor(props){
-<<<<<<< Updated upstream
 		super(props);
 		this.state = {
-			username: ''
+      username: '',
+      contacts:[
+        { id: 1, name: "Leanne Graham" },
+        { id: 2, name: "Ervin Howell" },
+        { id: 3, name: "Clementine Bauch" },
+        { id: 4, name: "Patricia Lebsack" }
+      ]
 		};
   }
   
@@ -21,17 +26,6 @@ export default class App extends Component {
     checkSession().then(res =>{
       this.setState({ username: res });
     });
-  }
-=======
-    super(props);
-    this.state = {
-      username: 'aa',
-      contacts:[
-        { id: 1, name: "Leanne Graham" },
-        { id: 2, name: "Ervin Howell" },
-        { id: 3, name: "Clementine Bauch" },
-        { id: 4, name: "Patricia Lebsack" }]
-    };
   }
 
   displayContacts(){
@@ -44,25 +38,17 @@ export default class App extends Component {
     })
   }
     
->>>>>>> Stashed changes
 
   render(){
     return(
       <div style={{ height: '100vh', backgroundColor: '#e1e1e1' }}>
         { !this.state.username ? 
-<<<<<<< Updated upstream
-          <Login login={(user)=>{this.setState({username: user})}} /> 
-          : 
-          <Chat username={this.state.username}
-               logout={()=>{this.setState({ username: '' })}} />}
-=======
           <Login login={(user)=>{this.setState({username: user})}}
                 logout={()=>{this.setState({username: ''})}} />: 
           <Chat username={this.state.username}
                 data={this.state.contacts} />}
            
 
->>>>>>> Stashed changes
       </div>
     );
   }
