@@ -11,7 +11,7 @@ Project proposed by the University of Beira Interior on Distributed Systems.
 - Heterogeneity
 - Scalability
 - Transparency
-- Competition
+- Concurrency
 - Fault Tolerance
 - Safety
 
