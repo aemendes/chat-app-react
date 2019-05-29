@@ -1,6 +1,6 @@
 import {Component} from "react";
 import React from "react";
-import Chat form "./Chat"
+import Chat form "./Chat";
 
 class Contactos extends Component {
   
