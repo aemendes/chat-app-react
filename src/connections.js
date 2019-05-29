@@ -9,24 +9,20 @@ const axioBackend = axios.create({
 function login(username, password){
 	return axioBackend.post('/account/login', {"username": username, "password": password})
 		.then(res =>{
-			//console.log('data login: ' + res.data);
 			return {"code": res.data.code, "username": username};
 		}).catch(err =>	console.log('erro login ' + err));
 };
 
 function signup(username, password){
-	//console.log('recebi username: ' + username + ' e pass: ' + password);
 	return axioBackend.post('/account/signup', {"username": username, "password": password})
 		.then(res => {
-			//console.log('data signup: ' + res.data);
 			return {"code": res.data.code, "username": username};
-		}).catch(err => console.log('errrrooooo: ', err));
+		}).catch(err => console.log('erro sign up: ' + err));
 };
 
 function logout(){
 	return axioBackend.post('/account/logout')
 		.then(res =>{
-			//console.log('data logout: ' + res.data);
 			if(res.data.code === 1)
 				return true
 			return false
@@ -37,12 +33,13 @@ function checkSession(){
 	return axioBackend.get('/account/checkSession')
 			.then(res => {
 				return res.data.username;
-			});
-}
+			}).catch(err => console.log('erro checksession: ' + err)
+			);
+};
 
 export {
 	login,
 	signup,
 	logout,
 	checkSession
-}
+};
