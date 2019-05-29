@@ -10,7 +10,7 @@ export default class App extends Component {
   constructor(props){
 		super(props);
 		this.state = {
-			username: 'dawfqwf'
+			username: ''
 		};
 	}
 
@@ -21,8 +21,7 @@ export default class App extends Component {
           <Login login={(user)=>{this.setState({username: user})}}
                 logout={()=>{this.setState({username: ''})}} /> 
           : 
-          <Chat username={this.state.username}
-                onSendMessage={this.onSendMessage} />}
+          <Chat username={this.state.username} />}
       </div>
     );
   }
