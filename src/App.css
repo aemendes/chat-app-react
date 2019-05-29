@@ -69,7 +69,7 @@
 }
 
 .currentMember > .Message-content .text {
-  background-color: orangered;
+  background-color:  #32CD32;
 }
 
 form {
@@ -84,14 +84,14 @@ input {
   padding: 5px;
   font-size: 16px;
   border-radius: 8px;
-  border: 1px solid orangered;
+  border: 1px solid  #32CD32;
   flex-grow: 1;
 }
 
 button {
   padding: 5px 10px;
   font-size: 16px;
-  background-color: orangered;
+  background-color:  #32CD32;
   color: white;
   border: none;
   border-radius: 8px;
