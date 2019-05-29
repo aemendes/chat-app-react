@@ -6,19 +6,15 @@ import './App.css';
 import './Contact.css'
 
 
-import { checkSession } from './connections';
+import { checkSession, getAllMessages } from './connections';
 
 export default class App extends Component {
   constructor(props){
 		super(props);
 		this.state = {
       username: '',
-      contacts:[
-        { id: 1, name: "Leanne Graham" },
-        { id: 2, name: "Ervin Howell" },
-        { id: 3, name: "Clementine Bauch" },
-        { id: 4, name: "Patricia Lebsack" }
-      ]
+      messages:[],
+      contacts: []
 		};
   }
   
@@ -26,6 +22,7 @@ export default class App extends Component {
     checkSession().then(res =>{
       this.setState({ username: res });
     });
+    console.log(this.state.messages);
   }
 
   displayContacts(){
@@ -43,9 +40,9 @@ export default class App extends Component {
     return(
       <div style={{ height: '100vh', backgroundColor: '#e1e1e1' }}>
         { !this.state.username ? 
-          <Login login={(user)=>{this.setState({username: user})}}
-                logout={()=>{this.setState({username: ''})}} />: 
+          <Login login={(user)=>{this.setState({username: user})}} />: 
           <Chat username={this.state.username}
+                setUsername={()=>{this.setState({username: ''})}}
                 data={this.state.contacts} />}
            
 

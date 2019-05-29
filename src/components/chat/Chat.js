@@ -4,7 +4,7 @@ import Messages from "../../Messages";
 import Input from "../../Input";
 
 //axios
-import { logout } from './../../connections';
+import { logout, getAllMessages } from './../../connections';
 
 function randomColor() {
   return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
@@ -14,20 +14,19 @@ export default class Chat extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			messages: [
-				{
-					text: "This is a test message!",
-					member: {
-						color: "blue",
-						username: "opponent"
-					}
-				}
-			],
+			data: [],
+			messages: [],
 			member: {
 				username: props.username,
 				color: randomColor()
 			}
   	}
+	}
+
+	componentDidMount(){
+		getAllMessages().then(res => {
+      this.setState({data: res});
+		});
 	}
 
 
@@ -73,7 +72,7 @@ displayContacts(){
 				<div class="columns" style={{ height: '10%' }}>
 
 					<div class="column is-3" style={{ fontWeight: '100%', borderRight: '1px solid grey' }}>Username {this.props.username.toUpperCase()} 
-						<button onClick={() => logout().then(res => res && this.props.logout())} style={{ marginLeft: 200 }}>Terminar Sessão </button>
+						<button onClick={() => logout().then(res => res && this.props.setUsername())} style={{ marginLeft: 200 }}>Terminar Sessão </button>
           </div>
 					<div class="column" >Titulo da conversa e horas</div>
 				</div>
@@ -98,12 +97,10 @@ displayContacts(){
 
 						</div>
 						
-                  <Messages
-							messages={this.state.messages}
-							currentMember={this.state.member}/>
+                  <Messages	messages={this.state.data}
+											currentMember={this.state.member}/>
 						
-                  <Input
-							onSendMessage={this.onSendMessage}/>
+                  <Input onSendMessage={this.onSendMessage}/>
 					
                </div>
 

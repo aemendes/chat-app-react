@@ -27,9 +27,11 @@ function signup(username, password){
 
 function logout(){
 	return axioBackend.post('/account/logout').then(res =>{
-			if(res.data.code === 1)
+			if(res.data.code === 1){
 				return true
-			return false
+			}else{
+				return false
+			}
 		}).catch(err => 
 			console.log('erro logout ' + err)
 		);
@@ -40,7 +42,11 @@ function logout(){
 
 function checkSession(){	
 	return axioBackend.get('/account/checkSession').then(res => {
-				return res.data.username;
+				if(res.data.username){
+					return res.data.username;
+				}else{
+					return ''
+				}
 			}).catch(err => 
 				console.log('erro checksession: ' + err)
 			);
@@ -48,8 +54,10 @@ function checkSession(){
 
 // Function to get all messages 
 function getAllMessages(){
-	return axioBackend.get('/message/getSince', {"since": Date.now()-24*60*60 }).then(res => {
-		console.log('entrei aqui');
+	return axioBackend.get('/message/getSince', {params:{"since": 1} }).then(res => {
+		if(res.data.code === 1){
+			return res.data.messages
+		}
 	}).catch(err =>{
 		console.log('erro get messages: ' + err);
 	});
@@ -61,5 +69,6 @@ export {
 	login,
 	signup,
 	logout,
-	checkSession
+	checkSession,
+	getAllMessages
 };
