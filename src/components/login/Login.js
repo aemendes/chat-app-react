@@ -158,10 +158,8 @@ export default class Login extends Component {
 								}else{
 									signup(this.state.inputSigninUsername, this.state.inputSigninPassword)
 											.then(res => {
-												console.log('registado com sucesso, code = ' + res);
-												if(res.code === 1){
-													console.log('user = ' + res.username);
-													
+																								if(res.code === 1){
+																										
 													this.props.login(res.username);
 													this.setState({ usernameInvalid: false, passwordInvalid: false });
 												}else{

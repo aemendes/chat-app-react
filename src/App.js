@@ -22,8 +22,7 @@ export default class App extends Component {
     checkSession().then(res =>{
       this.setState({ username: res });
     });
-    console.log(this.state.messages);
-  }
+      }
 
   displayContacts(){
     return this.state.contacts.map(msg =>{
