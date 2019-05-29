@@ -42,24 +42,33 @@ onSendMessage = (message) => {
   })
   this.setState({messages: messages})
 }
- logout() {
-        localStorage.clear();
-        {/*window.location.href = '/';*/}
-    }
 
+logout() {
+  console.log('this is:', this);
+}
+
+NovoAmigo() {
+  console.log('this is:', this);
+}
 
 	
 	render() {
 		return (
 			<div style={{ height: '100%' , overflow: 'hidden'}}>
 				<div class="columns" style={{ height: '10%' }}>
-					<div class="column is-3" style={{ fontWeight: '100%', borderRight: '1px solid grey' }}>Username {this.props.username.toUpperCase()} <button onclick="logout()">Terminar Sessão</button> </div>
+					<div class="column is-3" style={{ fontWeight: '100%', borderRight: '1px solid grey' }}>Username {this.props.username.toUpperCase()} 
+            <button onclick="logout()" style={{ marginLeft: 200 }}>Terminar Sessão </button>
+          </div>
 					<div class="column" >Titulo da conversa e horas</div>
 				</div>
 
 				<div class="columns" style={{ height: '90%', backgroundColor: 'white' }}>
-					<div class="column is-3" style={{ borderRight: '1px solid grey', overflow: 'auto' }}>Lista dos contatos</div>
-					<div className="App" style={{width: '100%'}}>
+
+					<div class="column is-3" style={{ borderRight: '1px solid grey', overflow: 'auto', height: '100%'}}>
+            <button onclick="NovoAmigo()" style={{ height: '40px', width: '100%' }}> Adicionar Contacto </button>
+          </div>
+					
+          <div className="App" style={{width: '100%'}}>
 						<div className="App-header">
 						</div>
 						<Messages
@@ -68,6 +77,7 @@ onSendMessage = (message) => {
 						<Input
 							onSendMessage={this.onSendMessage}/>
 					</div>
+
 				</div>
 			</div>
 		);
