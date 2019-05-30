@@ -34,8 +34,8 @@ This project was developed in React creating a Web Service, one proxy called ngi
 
 | Name                  | GitHub                                            | Linkedin                                           |
 | --------------------- | ------------------------------------------------- | ------------------------------------------------- |
-|  **Alexandre Mendes** | [aemendes](https://github.com/aemendes)           | [@aemendes](https://www.linkedin.com/in/alexandre-mendes-84011a161) |
-|      **Luis Pais**    | [ranguna](https://github.com/ranguna)             | [@ranguna](https://www.linkedin.com/in/luis-pais-922246162) |
-|    **João Marques**   | [JoaoDBMarques](https://github.com/JoaoDBMarques) | [@JoaoDBMarques](https://www.linkedin.com/in/joão-marques-08575b150)              |
-| **Catarina Bernardo** | [AnaBernard0](https://github.com/AnaBernard0)     | [@AnaBernard0](https://www.linkedin.com/in/catarina-bernardo-03471b160) |
+|  **Alexandre Mendes** | [aemendes](https://github.com/aemendes)           | [aemendes](https://www.linkedin.com/in/alexandre-mendes-84011a161) |
+|      **Luis Pais**    | [ranguna](https://github.com/ranguna)             | [ranguna](https://www.linkedin.com/in/luis-pais-922246162) |
+|    **João Marques**   | [JoaoDBMarques](https://github.com/JoaoDBMarques) | [JoaoDBMarques](https://www.linkedin.com/in/joão-marques-08575b150)              |
+| **Catarina Bernardo** | [AnaBernard0](https://github.com/AnaBernard0)     | [AnaBernard0](https://www.linkedin.com/in/catarina-bernardo-03471b160) |
 
