@@ -22,7 +22,7 @@ This part of the project will be the creation of a react client for the Web serv
 ![alt text](Diagram_Webservice.png)
 
 
-### Implementacion 
+### Implementation 
 This project was developed in React creating a Web Service, one proxy called nginx and two servers, one for frontend, and one backend for business logic and data storage. This chat implements resourse sharing having one database,divided between multiple machines in a cluster working for all users that need new information. The frontend can be use on any device that supports a browser, like a smartphone or a desktop, keeping the heterogeneity of the chat. The scalability of our chat allows, no matter how many users simultaneously use the aplication, to keep running because our server and database can have diferent instances working at the same time and our data have redundancies. Our system hides from the users the processes and the resourses used, only showing  user's the interface keeping the system transparency. The nodojs have a loop event that allows simultaneous requests in parallel, giving the chat a competition feature. It also replicates the databases for the case one of them fails, other one takes its place, other feature is the backup of the database, various instances in the same backend allow the case of fail to other one use the data. At last, the safety is present in the communication between client, server and database, because this comminications are encrypted using https.
 
 ### Compile & Start 
