@@ -23,8 +23,11 @@ const {user: UserError} = require("../errors/codes")
  */
 function getUserPub(user, session,  why="unspecified reason", who="unspecified origin"){
 	if(typeof user === "string")
-		return User.findOne({[UserCollection.keys.name]: userName}, UserCollection.keys.pub, {session}).exec();
-	return User.findById(userId, UserCollection.keys.pub,{session}).exec();
+		return User.findOne({[UserCollection.keys.name]: user}, UserCollection.keys.pub, {session}).exec();
+	else if(user instanceof mongoose.Types.ObjectId)
+		return User.findById(user, UserCollection.keys.pub,{session}).exec();
+
+	return Promise.reject("User is invalid");
 }
 
 /**
@@ -128,9 +131,10 @@ function newUser(username, pub, priv, password, session, why="unspecified reason
 		);
 
 	return new Promise((resolve, reject)=>{
-				return bcrypt.hash(password, 11, (err, hashedPassword)=>{
-						if(err)
+		return bcrypt.hash(password, 11, (err, hashedPassword)=>{
+			if(err)
 				return reject(err);
+		
 			return User.create([{
 				[UserCollection.keys.name]: username,
 				[UserCollection.keys.priv]: priv,
@@ -150,16 +154,15 @@ function newUser(username, pub, priv, password, session, why="unspecified reason
  * @returns {Promise<boolean>}
  */
 function validateUserPassword(user, password, why="unspecified reason", who="unspecified origin"){
-		if(user == null || typeof user != "object" || !user.password){
-				return Promise.reject(UserError.invalidUserField);
+	if(user == null || typeof user != "object" || !user.password){
+		return Promise.reject(UserError.invalidUserField);
 	}
 
-		return new Promise((resolve,reject)=>{
-				return bcrypt.compare(password, user.password, (err,result)=>{
-						if(err)
+	return new Promise((resolve,reject)=>{
+		return bcrypt.compare(password, user.password, (err,result)=>{
+			if(err)
 				return reject(err);
-			
-						resolve(result);
+			resolve(result);
 		});
 	});
 }
@@ -175,7 +178,7 @@ function getContacts(id, why="unspecified reason", who="unspecified origin"){
 	if(!(id instanceof mongoose.Types.ObjectId))
 		return Promise.reject({...UserError.invalidId, why, who});
 
-	return User.findById(id, [UserCollection.keys.contacts]).populate(UserCollection.keys.contacts, UserCollection.keys.name +" "+UserCollection.keys._id).exec();
+	return User.findById(id, [UserCollection.keys.contacts]).populate(UserCollection.keys.contacts, UserCollection.keys.name +" "+UserCollection.keys._id).exec().then(contacts=>contacts.contacts);
 }
 
 
@@ -183,7 +186,7 @@ function addContact(to, contact, session, why="unspecified reason", who="unspeci
 	if(!(to instanceof mongoose.Types.ObjectId) || !(contact instanceof mongoose.Types.ObjectId))
 		return Promise.reject({...UserError.invalidId, why, who});
 	
-	return User.updateOne({id: to, [UserCollection.keys.contacts]: {$not:{$all: [contact]}}}, { $push: { [UserCollection.keys.contacts]: contact } }).exec().then(/** @param {WriteResult} res*/res=>{
+	return User.updateOne({id: to, [UserCollection.keys.contacts]: {$not:{$all: [contact]}}}, { $push: { [UserCollection.keys.contacts]: contact } }).setOptions({session}).exec().then(/** @param {WriteResult} res*/res=>{
 		if(res.nModified === 0)
 			return false;
 
@@ -193,7 +196,9 @@ function addContact(to, contact, session, why="unspecified reason", who="unspeci
 function addContactFromName(name, contact, session, why="unspecified reason", who="unspecified origin"){
 	if(!name)
 		return Promise.reject({...UserError.invalidId, why, who});
-	return getUserFromName(contact,session).then(userContact=>{
+	
+	return getUserFromName(contact, session).then(userContact=>{
+		console.log(userContact)
 		return User.updateOne({[UserCollection.keys.name]: name, [UserCollection.keys.contacts]: {$not:{$all: [userContact.id]}}}, { $push: { [UserCollection.keys.contacts]: userContact.id } }).exec().then(/** @param {WriteResult} res*/res=>{
 			if(res.nModified === 0)
 				return false;
@@ -201,14 +206,6 @@ function addContactFromName(name, contact, session, why="unspecified reason", wh
 			return true;
 		});
 	});
-}
-
-
-function getContacts(id, why="unspecified reason", who="unspecified origin"){
-	if(!(id instanceof mongoose.Types.ObjectId))
-		return Promise.reject({...UserError.invalidId, why, who});
-
-	return User.findById(id, UserCollection.keys.contacts).populate(UserCollection.keys.contacts, "id "+ UserCollection.keys.name).exec()
 }
 
 

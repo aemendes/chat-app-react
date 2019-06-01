@@ -21,7 +21,9 @@ require("../server/drivers/passport")(passport);
 
 // Database initialization
 mongoose.connect(dbConfig.DB, {useNewUrlParser: true}).then(
-	()=>	(err)=>);
+	()=>console.log("connected to DB"),
+	(err)=>console.log(err)
+);
 
 // Express initializations
 app.use(cors({credentials:true, origin:"http://localhost:3000"}))
@@ -35,7 +37,7 @@ app.use(session({
 	cookie: {
 		secure: false,
 		// secure: env === "prod", // !prod: change to secure
-		httpOnly: true,
+		httpOnly: false,
 		maxAge: 1000*60*60*12, // two days
 	},
 	store: new MongoStore({mongooseConnection: mongoose.connection}),
@@ -47,23 +49,19 @@ let expressWs = require('express-ws')(app);
 // load routes
 const passportRouter = require("./routes/passportRouter")(passport);
 const messageRouter = require("./routes/messageRouter");
+const userRouter = require("./routes/userRouter");
 
 // add routes
 app.use("/account", passportRouter);
 app.use("/message", messageRouter);
+app.use("/users", userRouter);
 
 // Express routing
 app.get("/ping",(req,res)=>{
 	return res.status(200).send({message: "All channels working properly."});
 });
 
-app.ws("/echo", (ws,req)=>{
-	try{
-				ws.on("message", ws.send);
-	} catch(e){
-			}
-});
-
 // Server listening
 app.listen(PORT, ()=>{
-	});
+	console.log("Server running in port", PORT)
+});

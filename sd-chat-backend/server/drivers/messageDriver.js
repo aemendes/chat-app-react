@@ -19,9 +19,13 @@ const userDriver = require("../drivers/userDriver");
 let newMessageCallbacks = {}
 
 Message.watch({fullDocument: 'updateLookup'}).on('change', change => {
-		if(change.operationType === "insert"){
+	if(change.operationType === "insert"){
 		// new message
-		Object.values(newMessageCallbacks).forEach(cb=>cb(change.fullDocument));
+		console.log(change.fullDocument.from.id.hexSlice(), change.fullDocument.to.id.hexSlice())
+		userDriver.getUserPairFromId(mongoose.Types.ObjectId(change.fullDocument.from.id.hexSlice()), mongoose.Types.ObjectId(change.fullDocument.to.id.hexSlice())).then(users=>{
+			console.log("userpair: ", users)
+			Object.values(newMessageCallbacks).forEach(cb=>cb(change.fullDocument, users[0].name, users[1].name));
+		}).catch(err=>console.log("err on hcnage",err));
 	} else if(change.operationType === "update"){
 
 	}
@@ -83,7 +87,7 @@ function newMessage(from, to, message, session, why="unspecified reason", who="u
 }
 
 function newMessageToName(from, to, message, session, why="unspecified reason", who="unspecified origin"){
-		if(typeof from != "string" || typeof to != "string")
+	if(typeof from != "string" || typeof to != "string")
 		return Promise.reject({...MessageError.invalidToFrom, why, who});
 	if(typeof message != "string" || message.length > 500)
 		return Promise.reject({...MessageError.invalidMessage, why, who});
@@ -239,7 +243,12 @@ function getSince(to, since=Date.now(), session, why="unspecified reason", who="
 	if(typeof since != "number")
 		return Promise.reject({...MessageError.invalidSince, why, who});
 
-	return Message.find({[MessageCollection.keys.to]: to, [MessageCollection.keys.timeSent]: {$gte: since}}).populate(MessageCollection.keys.from + " " + MessageCollection.keys.to, UserCollection.keys.name).setOptions({session}).exec()
+	return Message.find({[MessageCollection.keys.to]: to, [MessageCollection.keys.timeSent]: {$gte: since}}).populate(MessageCollection.keys.from + " " + MessageCollection.keys.to, UserCollection.keys.name).setOptions({session}).exec().then(messagesTo=>{
+		return Message.find({[MessageCollection.keys.from]: to, [MessageCollection.keys.timeSent]: {$gte: since}}).populate(MessageCollection.keys.from + " " + MessageCollection.keys.to, UserCollection.keys.name).setOptions({session}).exec().then(messagesFrom=>{
+			console.log("messages",[...messagesTo, ...messagesFrom])
+			return [...messagesTo, ...messagesFrom];
+		});
+	})
 }
 
 module.exports = {

@@ -62,7 +62,7 @@ function registerUser(username, password, pub, priv, done){
 }
 
 function loginUser(username, password, done){
-		return UserDriver.getUserFromName(username, null, "Finding user to login", "passport.js@loginUser~finding user").then(user=>{
+	return UserDriver.getUserFromName(username, null, "Finding user to login", "passport.js@loginUser~finding user").then(user=>{
 		if(!user)
 			return done(UserError.userNotFound);
 		return UserDriver.validateUserPassword(user, password, "validating user password", "passport.js@loginUser~validating").then(result=>done(null, result && user));
@@ -84,7 +84,7 @@ module.exports = function(passport) {
 	});
 	// used to deserialize the user
 	passport.deserializeUser(function(id, done) {
-				return UserDriver.getUserFromId(mongoose.Types.ObjectId(id), null, "Deserializing user", "passport.js@deseralizeUser~getting user").then(user=>{
+		return UserDriver.getUserFromId(mongoose.Types.ObjectId(id), null, "Deserializing user", "passport.js@deseralizeUser~getting user").then(user=>{
 			done(null, user);
 		}).catch(err=>{
 			let errorId;

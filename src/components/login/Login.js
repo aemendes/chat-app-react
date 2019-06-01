@@ -77,7 +77,7 @@ export default class Login extends Component {
 										}else{
 											this.setState({ loginInvalid: true, inputLoginPassword: '' });
 										}
-									})
+									}).catch((err)=>{console.log("error logging in", err)})
 							}} >Submit</button>
 				</div>
 			</div>
