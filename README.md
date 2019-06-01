@@ -15,7 +15,7 @@ Project proposed by the University of Beira Interior on Distributed Systems.
 - Fault Tolerance
 - Safety
 
-This part of the project will be the creation of a react client for the Web service.
+This part of the project will be the creation of a react client for the Web service and the respective backend.
 
 ### Diagram
 
